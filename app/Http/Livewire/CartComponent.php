@@ -50,6 +50,10 @@ class CartComponent extends Component
     }
 
     public function cuenta(){
+        if(!Cart::instance('cart')->count() > 0){
+            session()->forget('checkout');
+            return;
+        }
         session()->put('checkout',[
             'discount' => 0,
             'subtotal' => Cart::instance('cart')->subtotal(),

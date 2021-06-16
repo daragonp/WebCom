@@ -16,6 +16,7 @@ use App\Http\Livewire\Admin\AdminAddProductComponent;
 use App\Http\Livewire\Admin\AdminEditCategoryComponent;
 use App\Http\Livewire\Admin\AdminEditProductComponent;
 use App\Http\Livewire\Admin\ProductAdminComponent;
+use App\Http\Livewire\ThankyouComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +40,7 @@ Route::get('/shop', ShopComponent::class);
 
 Route::get('/cart', CartComponent::class)->name('product.cart');
 
-Route::get('/checkout', CheckoutComponent::class);
+Route::get('/checkout', CheckoutComponent::class)->name('checkout');
 
 //No olvidad incluir la clase.
 Route::get('/product/{slug}', DetailsComponent::class)->name('product.details');
@@ -48,6 +49,9 @@ Route::get('/product/{slug}', DetailsComponent::class)->name('product.details');
 Route::get('/product-category/{category_slug}', CategoryComponent::class)->name('product.category');
 
 Route::get('/search', SearchComponent::class)->name('product.search');
+
+Route::get('/thank-you', ThankyouComponent::class)->name('thankyou');
+
 
 /*Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

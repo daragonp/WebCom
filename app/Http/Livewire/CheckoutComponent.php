@@ -13,8 +13,8 @@ use Cart;
 class CheckoutComponent extends Component
 {
     public $ship_to_different;
-    public $first_name;
-    public $last_name;
+    public $firstname;
+    public $lastname;
     public $email;
     public $mobile;
     public $line1;
@@ -24,8 +24,8 @@ class CheckoutComponent extends Component
     public $country;
     public $zipcode;
 
-    public $s_first_name;
-    public $s_last_name;
+    public $s_firstname;
+    public $s_lastname;
     public $s_email;
     public $s_mobile;
     public $s_line1;
@@ -36,11 +36,12 @@ class CheckoutComponent extends Component
     public $s_zipcode;
 
     public $paymentmode;
+    public $thankyou;
 
     public function updated($fields){
         $this->validateOnly($fields, [
-            'first_name' => 'required',
-            'last_name' => 'required',
+            'firstname' => 'required',
+            'lastname' => 'required',
             'email' => 'required|email',
             'mobile' => 'required|numeric',
             'line1' => 'required',
@@ -51,9 +52,9 @@ class CheckoutComponent extends Component
             'paymentmode'=> 'required'
         ]);
         if($this->ship_to_different){
-            $this->validateOnly([
-                's_first_name' => 'required',
-                's_last_name' => 'required',
+            $this->validateOnly($fields, [
+                's_firstname' => 'required',
+                's_lastname' => 'required',
                 's_email' => 'required|email',
                 's_mobile' => 'required|numeric',
                 's_line1' => 'required',
@@ -66,8 +67,8 @@ class CheckoutComponent extends Component
     }
     public function placeOrder(){
         $this->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
+            'firstname' => 'required',
+            'lastname' => 'required',
             'email' => 'required|email',
             'mobile' => 'required|numeric',
             'line1' => 'required',
@@ -83,8 +84,8 @@ class CheckoutComponent extends Component
             $order->discount = session()->get('checkout')['discount'];
             $order->tax = session()->get('checkout')['tax'];
             $order->total = session()->get('checkout')['total'];
-            $order->first_name = $this->first_name;
-            $order->last_name = $this->last_name;
+            $order->firstname = $this->firstname;
+            $order->lastname = $this->lastname;
             $order->email = $this->email;
             $order->mobile = $this->mobile;
             $order->line1 = $this->line1;
@@ -94,7 +95,7 @@ class CheckoutComponent extends Component
             $order->country = $this->country;
             $order->zipcode = $this->zipcode;
             $order->status = 'ordered';
-            $order->is_shipping_different = $this->ship_to_different ? 1:0;
+            $order->is_shipping_diferent = $this->ship_to_different ? 1:0;
             $order->save();
 
             foreach(Cart::instance('cart')->content() as $item){
@@ -107,8 +108,8 @@ class CheckoutComponent extends Component
             }
             if ($this->ship_to_different){
                 $this->validate([
-                    's_first_name' => 'required',
-                    's_last_name' => 'required',
+                    's_firstname' => 'required',
+                    's_lastname' => 'required',
                     's_email' => 'required|email',
                     's_mobile' => 'required|numeric',
                     's_line1' => 'required',
@@ -119,8 +120,8 @@ class CheckoutComponent extends Component
                 ]);
                 $shipping = new Shipping();
                 $shipping->order_id = $order->id;
-                $shipping->first_name = $this->s_first_name;
-                $shipping->last_name = $this->s_last_name;
+                $shipping->firstname = $this->s_firstname;
+                $shipping->lastname = $this->s_lastname;
                 $shipping->email = $this->s_email;
                 $shipping->mobile = $this->s_mobile;
                 $shipping->line1 = $this->s_line1;
@@ -139,12 +140,26 @@ class CheckoutComponent extends Component
                     $transaction->status = 'pending';
                     $transaction->save();
                 }
+                $this->thankyou = 1;
                 Cart::instance('cart')->destroy();
                 session()->forget('checkout');
     }
 
+    public function verifyForCheckout(){
+        if(!Auth::check()){
+            return redirect()->route('login');
+        }
+        else if($this->thankyou){
+            return redirect()->route('thankyou');
+        }
+        else if(!session()->get('checkout')){
+            return redirect()->route('product.cart');
+        }
+    }
+
     public function render()
     {
+        $this->verifyForCheckout();
         return view('livewire.checkout-component')->layout("layouts.base");
     }
 }

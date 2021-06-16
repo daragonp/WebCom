@@ -1,7 +1,5 @@
 	<main id="main" class="main-site">
-
 		<div class="container">
-
 			<div class="wrap-breadcrumb">
 				<ul>
 					<li class="item-link"><a href="/" class="link">Inicio</a></li>
@@ -9,7 +7,7 @@
 				</ul>
 			</div>
 			<div class=" main-content-area">
-				<form>
+				<form wire:submit.prevent="placeOrder">
 					<div class="row">
 						<div clas="col-md-12">					
 							<div class="wrap-address-billing">
@@ -17,13 +15,13 @@
 								<div class="billing-address"</div>
 									<p class="row-in-form">
 										<label for="fname">first name<span>*</span></label>
-										<input type="text" name="fname" value="" placeholder="Your name" wire:model="first_name">
-										@error('first_name')<span class="text-danger">{{$message}}</span> @enderror
+										<input type="text" name="fname" value="" placeholder="Your name" wire:model="firstname">
+										@error('firstname')<span class="text-danger">{{$message}}</span> @enderror
 									</p>
 									<p class="row-in-form">
 										<label for="lname">last name<span>*</span></label>
-										<input type="text" name="lname" value="" placeholder="Your last name" wire:model="last_name">
-										@error('last_name')<span class="text-danger">{{$message}}</span> @enderror
+										<input type="text" name="lname" value="" placeholder="Your last name" wire:model="lastname">
+										@error('lastname')<span class="text-danger">{{$message}}</span> @enderror
 									</p>
 									<p class="row-in-form">
 										<label for="email">Email Addreess:</label>
@@ -80,13 +78,13 @@
 										<div class="billing-address"</div>
 									<p class="row-in-form">
 										<label for="fname">first name<span>*</span></label>
-										<input type="text" name="fname" value="" placeholder="Your name" wire:model="s_first_name">
-										@error('s_first_name')<span class="text-danger">{{$message}}</span> @enderror
+										<input type="text" name="fname" value="" placeholder="Your name" wire:model="s_firstname">
+										@error('s_firstname')<span class="text-danger">{{$message}}</span> @enderror
 									</p>
 									<p class="row-in-form">
 										<label for="lname">last name<span>*</span></label>
-										<input type="text" name="lname" value="" placeholder="Your last name" wire:model="s_last_name">
-										@error('s_last_name')<span class="text-danger">{{$message}}</span> @enderror
+										<input type="text" name="lname" value="" placeholder="Your last name" wire:model="s_lastname">
+										@error('s_lastname')<span class="text-danger">{{$message}}</span> @enderror
 									</p>
 									<p class="row-in-form">
 										<label for="email">Email Addreess:</label>
