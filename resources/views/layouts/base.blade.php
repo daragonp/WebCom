@@ -34,13 +34,6 @@
 			<div class="row">
 				<div class="topbar-menu-area">
 					<div class="container">
-						<div class="topbar-menu left-menu">
-							<ul>
-								<li class="menu-item" >
-									<a title="Hotline: (+123) 456 789" href="#" ><span class="icon label-before fa fa-mobile"></span>Hotline: (+123) 456 789</a>
-								</li>
-							</ul>
-						</div>
 						<div class="topbar-menu right-menu">
 							<ul>
 								@if(Route::has('login'))
@@ -100,12 +93,12 @@
 						@livewire('header-search-component')
 						<div class="wrap-icon right-section">							
 							<div class="wrap-icon-section minicart">
-								<a href="#" class="link-direction">
+								<a href="/cart" class="link-direction">
 									<i class="fa fa-shopping-basket" aria-hidden="true"></i>
 									<div class="left-info">
-										@if(Cart::count() > 0)
+										@if(Cart::instance('cart')->count() > 0)
 											<span class="title">Usted tiene </span>
-											<span class="index">{{Cart::count()}} productos</span>
+											<span class="index">{{Cart::instance('cart')->count()}} productos</span>
 											<span class="title">en el carrito</span>
 										@endif
 									</div>
@@ -118,6 +111,26 @@
 									<span></span>
 								</a>
 							</div>
+						</div>
+					</div>
+				</div>
+				<div class="nav-section header-sticky">
+					<div class="primary-nav-section">
+						<div class="container">
+							<ul class="nav primary clone-main-menu" id="mercado_main" data-menuname="Main menu" >
+								<li class="menu-item home-icon">
+									<a href="/" class="link-term mercado-item-title"><i class="fa fa-home" aria-hidden="true"></i></a>
+								</li>
+								<li class="menu-item">
+									<a href="/shop" class="link-term mercado-item-title">Comprar</a>
+								</li>
+								<li class="menu-item">
+									<a href="/cart" class="link-term mercado-item-title">Carrito</a>
+								</li>
+								<li class="menu-item">
+									<a href="/checkout" class="link-term mercado-item-title">Pagar</a>
+								</li>																
+							</ul>
 						</div>
 					</div>
 				</div>
@@ -155,6 +168,10 @@
 	<script src="{{ asset('assets/js/jquery.countdown.min.js') }}"></script>
 	<script src="{{ asset('assets/js/jquery.sticky.js') }}"></script>
 	<script src="{{ asset('assets/js/functions.js') }}"></script>
-    @livewireScripts
+	<script src="https://cdn.tiny.cloud/1/fdl71k505okreqg1nk8s00ne9r5k94jgbhs4sqwu6xpssj2e/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    
+	@livewireScripts
+
+	@stack('scripts')
 </body>
 </html>
