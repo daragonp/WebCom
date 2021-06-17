@@ -8,15 +8,17 @@ use App\Http\Livewire\SearchComponent;
 use App\Http\Livewire\DetailsComponent;
 use App\Http\Livewire\CategoryComponent;
 use App\Http\Livewire\CheckoutComponent;
+use App\Http\Livewire\ThankyouComponent;
+use App\Http\Livewire\Admin\AdminOrderComponent;
+use App\Http\Livewire\Admin\ProductAdminComponent;
 use App\Http\Livewire\User\UserDashboardComponent;
 use App\Http\Livewire\Admin\AdminCategoryComponent;
 use App\Http\Livewire\Admin\AdminDashboardComponent;
-use App\Http\Livewire\Admin\AdminAddCategoryComponent;
 use App\Http\Livewire\Admin\AdminAddProductComponent;
-use App\Http\Livewire\Admin\AdminEditCategoryComponent;
+use App\Http\Livewire\Admin\AdminAddCategoryComponent;
 use App\Http\Livewire\Admin\AdminEditProductComponent;
-use App\Http\Livewire\Admin\ProductAdminComponent;
-use App\Http\Livewire\ThankyouComponent;
+use App\Http\Livewire\Admin\AdminEditCategoryComponent;
+use App\Http\Livewire\Admin\AdminOrdersDetailsComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,4 +73,6 @@ Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->group(function() {
     Route::get('/admin/products', ProductAdminComponent::class)->name('admin.products');
     Route::get('/admin/product/add', AdminAddProductComponent::class)->name('admin.addproduct');
     Route::get('/admin/product/edit/{product_slug}',AdminEditProductComponent::class)->name('admin.editproduct');
+    Route::get('/admin/orders', AdminOrderComponent::class)->name('admin.orders');
+    Route::get('/admin/orders/{order_id}', AdminOrdersDetailsComponent::class)->name('admin.ordersdetails');
 });
