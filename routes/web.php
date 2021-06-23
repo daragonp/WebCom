@@ -9,12 +9,14 @@ use App\Http\Livewire\DetailsComponent;
 use App\Http\Livewire\CategoryComponent;
 use App\Http\Livewire\CheckoutComponent;
 use App\Http\Livewire\ThankyouComponent;
+use App\Http\Livewire\User\UserOrdersComponent;
 use App\Http\Livewire\Admin\AdminOrderComponent;
 use App\Http\Livewire\Admin\ProductAdminComponent;
 use App\Http\Livewire\User\UserDashboardComponent;
 use App\Http\Livewire\Admin\AdminCategoryComponent;
 use App\Http\Livewire\Admin\AdminDashboardComponent;
 use App\Http\Livewire\Admin\AdminAddProductComponent;
+use App\Http\Livewire\User\UserOrderDetailsComponent;
 use App\Http\Livewire\Admin\AdminAddCategoryComponent;
 use App\Http\Livewire\Admin\AdminEditProductComponent;
 use App\Http\Livewire\Admin\AdminEditCategoryComponent;
@@ -61,7 +63,9 @@ Route::get('/thank-you', ThankyouComponent::class)->name('thankyou');
 
 // Ruta de usuario o cliente
 Route::middleware(['auth:sanctum', 'verified'])->group(function() {   
-   Route::get('/user/dashboard', UserDashboardComponent::class)->name('user.dashboard');  
+   Route::get('/user/dashboard', UserDashboardComponent::class)->name('user.dashboard');
+   Route::get('/user/orders', UserOrdersComponent::class)->name('user.orders');
+   Route::get('/user/orders/{order_id}', UserOrderDetailsComponent::class)->name('user.ordersdetails');
 });
 
 // Ruta de administrador
